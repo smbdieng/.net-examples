@@ -1,0 +1,61 @@
+﻿<UserControl x:Class="Module1.Views.EditView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" 
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:prism="http://www.codeplex.com/prism"
+    xmlns:i="http://schemas.microsoft.com/expression/2010/interactions"
+    xmlns:ei="http://schemas.microsoft.com/expression/2010/interactivity"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:local="clr-namespace:Module1"
+    mc:Ignorable="d">
+
+    <Grid x:Name="LayoutRoot">
+        <Grid.Background>
+            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                <GradientStop Color="#FF7B97D4" />
+                <GradientStop Color="#FF244C8D" Offset="1" />
+            </LinearGradientBrush>
+        </Grid.Background>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <!--Bind to the Interaction Request object on the view model and display a popup to confirm navigation-->
+        <ei:Interaction.Triggers>
+            <prism:InteractionRequestTrigger SourceObject="{Binding NavigationInteractionRequest}">
+                <local:ConfirmNavigationAction />
+            </prism:InteractionRequestTrigger>
+        </ei:Interaction.Triggers>
+
+        <TextBlock Grid.Row="0" Grid.ColumnSpan="2" Text="Edit View (Module 1)" TextWrapping="Wrap" FontSize="16" Foreground="#FF2F3806" Margin="8,8,8,2"/>
+
+        <TextBlock Grid.Row="1" Grid.ColumnSpan="2" TextWrapping="Wrap" FontSize="10" Foreground="#FF2F3806" Margin="8,2,8,8">
+            <Run Text="This view demonstrates Prism's support for navigation control and interaction requests." />
+            <Run Text="The view model for this view uses an interaction request to prompt the user during navigation to confirm or cancel navigation away from this view." />
+            <Run Text="Click the CheckBox below to enable or disable confirmation and then navigate to another view." />
+        </TextBlock>
+
+        <TextBlock Grid.Row="2" Grid.Column="0" Text="Confirm Navigation:" Margin="8" FontSize="12" Foreground="#FF2F3806"/>
+        <CheckBox Grid.Row="2" Grid.Column="1" IsChecked="{Binding ConfirmNavigation, Mode=TwoWay}"
+                  HorizontalAlignment="Stretch" Margin="8" Foreground="#FF2F3806" />
+
+        <!--Display Current Item Details-->
+        <TextBlock Grid.Row="3" Grid.Column="0" Text="Name:" Margin="8" FontSize="12" Foreground="#FF2F3806"/>
+        <TextBlock Grid.Row="3" Grid.Column="1" Text="{Binding CurrentItem.Name}" HorizontalAlignment="Stretch" Margin="8" FontSize="12" Foreground="#FF2F3806"/>
+        <TextBlock Grid.Row="4" Grid.Column="0" Text="Description:" Margin="8" FontSize="12" Foreground="#FF2F3806"/>
+        <TextBlock Grid.Row="4" Grid.Column="1" Text="{Binding CurrentItem.Description}" HorizontalAlignment="Stretch" Margin="8" FontSize="12" Foreground="#FF2F3806"/>
+        <TextBlock Grid.Row="5" Grid.Column="0" Text="ID:" Margin="8" FontSize="12" Foreground="#FF2F3806"/>
+        <TextBlock Grid.Row="5" Grid.Column="1" Text="{Binding CurrentItem.Id}" HorizontalAlignment="Stretch" Margin="8" FontSize="12" Foreground="#FF2F3806"/>
+
+    </Grid>
+
+</UserControl>
