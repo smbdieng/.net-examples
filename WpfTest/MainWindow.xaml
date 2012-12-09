@@ -2,12 +2,14 @@
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:local="clr-namespace:WpfTest"
-        Title="LinearGradientBrush" Height="600" Width="300">
+        Title="LinearGradientBrush" Height="700" Width="300">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="200" />
             <RowDefinition Height="200" />
             <RowDefinition Height="200" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
         </Grid.RowDefinitions>
         <local:LinearGradientBrushControl 
             Grid.Row="0"
@@ -29,5 +31,32 @@
             StartColor="Green"
             StopColor="Yellow"
           />
+        <Button Content="Green Hover"
+            Grid.Row="3"
+            local:Attach.HoverBrush="Green"
+            Template="{StaticResource ButtonTemplate}"/>
+        <StackPanel Grid.Row="4" Orientation="Horizontal">
+            <StackPanel.Resources>
+                <ControlTemplate TargetType="{x:Type Button}" x:Key="ButtonTemplate2">
+                    <Border x:Name="border" Background="Purple" BorderThickness="3" >
+                        <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="border"
+                            Property="Background"
+                            Value="{Binding RelativeSource={RelativeSource TemplatedParent},
+                                            Path=(local:Attach.HoverBrush)}"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </StackPanel.Resources>
+            <Button Content="Blue Hover"
+                local:Attach.HoverBrush="Blue"
+                Template="{StaticResource ButtonTemplate}"/>
+            <Button Content="Red Hover"
+                local:Attach.HoverBrush="Red"
+                Template="{StaticResource ButtonTemplate2}"/>
+        </StackPanel>
     </Grid>
 </Window>
